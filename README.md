@@ -1,3 +1,8 @@
+## Project Screenshot
+
+![Website Screenshot](screenshots/homepage.png)
+
+
 # ATS Resume Analyzer (ResumeMatch)
 
 **ATS Resume Analyzer** (a.k.a. *ResumeMatch*) is a compact web application that helps job-seekers optimize their resumes for applicant tracking systems (ATS) and discover matching job postings. Users upload a resume and paste a job description; the backend runs an ML-powered script (`ats.py`) that analyzes how well the resume matches the JD and returns a score + actionable feedback. A second feature uploads a resume and finds matching job postings by calling public job APIs.
