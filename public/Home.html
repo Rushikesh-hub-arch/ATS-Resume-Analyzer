@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATS Resume Analyzer</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+      <section id="section-1">
+           <header class="header-cont-1">
+                <span class="logo">ResumeMatch</span>
+                 <nav class="nav"> 
+                  <a class="nav-1 nav-a nav-b" href="#section-3">Resume Analysis</a>
+                  <a class="nav-2 nav-a nav-b" href="#section-4">Job Finder</a>
+                  <a class="nav-3 nav-a nav-b" href="#section-2">How It Works</a>                
+                 </nav>
+                 <div class="auth">
+                    <!-- <a href="#" class="login nav-a auth-a " id="show-login">Login</a>
+                    <a href="#" class="sign-up nav-a auth-a"  id="show-signup">Sign Up</a> -->
+                 </div>
+           </header>
+      <div class="sec1-cont-2"> 
+        <div class="sec1-cont2-1-1">
+        <label class="sec1-cont2-1"><i class="fa-solid fa-wand-magic-sparkles" id="fa-solid-1"></i>&nbsp;&nbsp;Optimize your resume and find matching jobs</label> </div>
+        <h1  class="sec1-cont2-2"> Elevate Your Career with <span class="sec1-1">Resume Match </span></h1>
+        <p class="sec1-cont2-3">Upload your resume, analyze its strength, find missing elements,<br>and discover perfect job matches all in one place.</p>
+        <div class="sec1-cont2-4">
+          <a href="#section-3" class="sec1-cont2-4-1" >Analyze My Resume</a>
+          <a href="#section-4"class="sec1-cont2-4-1 sec1-2">Find Matching Jobs</a>
+        </div>
+    </div>
+    </section>
+          
+      <section id="section-2">
+
+         <h2 class="sec2-item-1">How It Works ?</h2>
+         <p  class="sec2-item-2">Our platform helps you optimize your resume and find the right job matches in a few <br>simple steps.</p>
+    <div class="sec2-item-3">
+         <div class="sec2-cont1-1 sec2-1">
+            <div class="sec2-i-1"><i class="fa-solid fa-upload" id="fa-solid-2"></i></div>
+             <h3 class="sec2-cont1-1-1">Upload Your Resume</h3>
+             <p class="sec2-cont1-1-2">format and let our AI analyze its strengths and weaknesses.</p>
+         </div>
+         <div class="sec2-cont2-1 sec2-1">
+            <div class="sec2-i-1"><i class="fa-solid fa-trophy" id="fa-solid-2"></i></div>
+            <h3 class="sec2-cont1-1-1">Get Detailed Analysis</h3>
+            <p class="sec2-cont1-1-2">Receive a comprehensive analysis of your resume,  including a score and suggestions for improvement.</p>
+         </div>
+         <div class="sec2-cont3-1 sec2-1">
+            <div class="sec2-i-1"><i class="fa-solid fa-briefcase" id="fa-solid-2"></i></div>
+            <h3 class="sec2-cont1-1-1">Find Matching Jobs</h3>
+            <p class="sec2-cont1-1-2">Discover job opportunities that match your skills and experience, with personalized  match scores.</p>
+         </div>
+  </div>
+    </section>
+
+
+<section id="section-3">   
+       
+          <h2 class="sec3-item-1">Analyze Your Resume</h2>
+          <p class="sec3-item-2">
+            Upload your resume and a job description to see how well they match 
+            and get<br> suggestions for improvement.
+          </p>
+
+          <div class="container" id="sec3-item-3">
+
+               <div class="sec3-item-3-1">
+                    <div class="sec3-item-3-1-1">
+                                  <label class="sec3-item-3-1-1-1">Upload Your Resume</label>           
+                                  <!-- Resume Upload Section -->
+                                 <div class="upload-box" id="uploadBox">
+                                                  <i class="fa-solid fa-arrow-up-from-bracket" id="uploadIcon"></i>
+                                                       <span id="uploadLabel">Click to upload your resume</span>
+                                        <span class="upload-note">PDF, DOC, or DOCX (max 2MB)</span>
+                                         <input type="file" id="resumeInput" class="hidden-input" accept=".pdf,.doc,.docx" />
+                                     </div>
+                    </div>                    
+                                  <!-- Job Description Input -->
+                    <div class="jd-section" id="sec3-item-3-1-2">
+                                  <label class="sec3-item-3-1-2-1">Paste Job Description</label>
+                                  <textarea id="jobDescription" rows="10" cols="30" placeholder="Paste the job description here..."></textarea>
+                    </div>
+               </div>          
+                                   <!-- Action Buttons -->
+               <div class="action-buttons">
+                                  <button id="generateBtn">Generate Analysis</button>
+                                  <button id="resetBtn">Reset</button>
+              </div>
+
+               <!-- <div class="sec3-item-3-1-3" id="resultSection"  style="display: none;"> -->
+                 <div class="sec3-item-3-1-3" id="resultSection">
+
+                                 <!-- Score Display -->
+                         <div class="circular-meter" id="scoreMeter">
+                              <svg class="progress-ring" width="150" height="150">
+                              <circle class="ring-bg" cx="75" cy="75" r="65" />
+                              <circle class="ring-fill" cx="75" cy="75" r="65" />
+                              </svg>
+                              <div class="score-text" id="scoreText">0%</div>
+                         </div>
+
+                          <!-- Feedback Section -->
+                          <div class="form-points" id="feedbackSection">
+                                 <ul class="list" id="feedbackList">
+                            <!-- Feedback <li> items will be injected here -->
+                                  </ul>
+                          </div>
+                </div>
+           </div>
+     </section>
+
+    <section id="section-4">
+   
+        <h2 class="sec4-item-1">  Find Your Perfect Job Match..<span class="sec4-item-11">!</span></h2>
+     <p class="sec4-item-2">Upload your resume and we'll find jobs that match your skills and experience.  </p>
+
+     <div class="sec4-item-5">
+                <div class="sec4-item-3">
+            
+                    <!-- <div class="container2"> -->
+                     <div class="sec4-item-3-1">
+                           <label class="sec4-cont-1" >Upload Your Resume</label>
+                            <!-- Upload Box -->
+                           <div class="upload-box2" id="uploadBox2" role="button" tabindex="0">
+                                <i class="fa-solid fa-arrow-up-from-bracket" id="uploadIcon"></i>
+                                <span id="uploadLabel2">Click to upload your resume</span>
+                                <span class="upload-note2">PDF, DOC, or DOCX (max 2MB)</span>
+                                <input type="file" id="resumeInput2" class="hidden-input" accept=".pdf,.doc,.docx" />
+                            </div>
+                      </div>              
+              <!-- Find Button -->
+                         <button class="Find" id="findBtn"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Find</button>
+                </div>
+                 <!-- Filter & Reset -->
+                <!-- <div class="filter-section hidden"> -->
+                  <div class="filter-section" id="filterSection">
+                        <div class="homess">
+                          <div class="homesss-11">
+                                     <i class="fa-solid fa-briefcase" id="fa-solid-10"></i>
+                                      <h3 class="total-job-post-match">0 Matching Jobs</h3>
+                          </div>
+                          <div class="homess-1">
+                                 <label for="filterSelect" class="homess-2">Sort by:</label>
+                                 <select class="filter-job-posts" id="filterSelect">
+                                         <option value="" disabled selected hidden>Score </option>
+                                         <option value="high">75%-100%</option>
+                                         <option value="medium">35%-74%</option>
+                                         <option value="low">1%-34%</option>
+                                 </select>
+                           </div>
+                        </div>
+                           <!-- Job Posts List -->
+                            <ul class="job-posts-list" id="jobPostsList">
+                                    <!-- Dynamically injected <li class="job-post"> items will appear here -->           
+                                </ul>                                
+
+                            <div class="homess-3">
+                                <button id="resetBtn2">Reset</button>
+                            </div>
+                 </div>   
+    </div>
+     </section>
+
+     <section id="section-5">
+        <div class="sec5-container"> 
+            <h2  class="sec5-item-1">Ready to Land Your Dream Job <span class="sec4-item-11">? </span> </h2>
+            <p  class="sec5-item-2" >Start by analyzing your resume and discovering jobs that perfectly match your skills <br> and experience.</p> 
+            <div class="sec5-item-3">
+             <span class="sec5-cont-1"><a class="sec5-cont-1-1" href="#section-3">Get Started Now <i class="fa-solid fa-arrow-right" id="fa-solid-8"></i></a></span>
+                <a class="sec5-cont-2" >Learn more about our platform</a>
+             </div>
+             </div>
+        <div class="sec5-container-2">          
+        <footer class="sec5-footer">
+              
+              <div class="sec5-foot-item-1">
+              <span class="sec5-foot-item-1-1">ResumeMatch</span>
+                <p class="sec5-foot-item-1-2" >Find your perfect career match</p>
+              </div>
+              <div class="sec5-foot-item-2">
+               <a class="sec5-foot-item-2-1 sec5-aa" href="#">Privacy Policy</a>
+                <a class="sec5-foot-item-2-1 sec5-aa" href="#" >Terms of Service</a>
+                <a class="sec5-foot-item-2-3 sec5-aa" href="#" >Contact Us</a>
+              </div>
+            <div  class="sec5-foot-item-3 ">© 2025 ResumeMatch. All rights reserved.</div>
+       
+      </footer> 
+      </div>
+ </section> 
+</body>
+</html>

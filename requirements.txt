@@ -1,0 +1,6 @@
+scikit-learn
+numpy
+pdfminer.six
+python-docx
+
+
