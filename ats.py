@@ -3,17 +3,38 @@ import sys
 import json
 import os
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+def cosine_section_scores(resume_data, job_description):
+    sections = ['work_experience','skills','education']
+    vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1,2))
+    docs = [job_description] + [resume_data[s] or "" for s in sections]
+    tfidf = vectorizer.fit_transform(docs)
+    jd_vec = tfidf[0]
+    scores = {}
+    for i, s in enumerate(sections, start=1):
+        sim = cosine_similarity(jd_vec, tfidf[i])[0][0]  # between 0.0 and 1.0
+        scores[s] = sim * 100
+    final = scores['work_experience'] * 0.4 + scores['skills'] * 0.4 + scores['education'] * 0.2
+    return final, scores
 
 def clean_text(text):
-    text = re.sub(r'/[A-Z][A-Za-z0-9]*', '', text)
-    text = re.sub(r'\s+', ' ', text)
-    return text.replace('Node.js', 'nodejs').lower()
+    if not text:
+        return ""
+    # remove non-printable chars, normalize spaces, lowercase
+    text = re.sub(r'[^\x00-\x7F]+', ' ', text)         # remove weird unicode
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = text.replace('Node.js', 'nodejs')
+    return text.lower()
 
 def extract_section(text, section_name, stop_sections):
-    stop_pattern = '|'.join(stop_sections)
-    pattern = rf'(?i){section_name}[\s\S]*?(?={stop_pattern}|$)'
-    match = re.search(pattern, text, re.DOTALL)
-    return match.group(0).strip() if match else ""
+    # Build a safe regex: look for heading lines that contain section_name
+    # and capture until the next heading in stop_sections or end of text.
+    escaped_stops = [re.escape(s) for s in stop_sections]
+    stop_pattern = r'|'.join(escaped_stops)
+    pattern = rf'(?ims)^\s*{re.escape(section_name)}\b.*?(?=^\s*(?:{stop_pattern})\b|\Z)'
+    m = re.search(pattern, text)
+    return m.group(0).strip() if m else ""
 
 def parse_resume(resume_text):
     cleaned_text = clean_text(resume_text)
@@ -25,19 +46,24 @@ def parse_resume(resume_text):
 
 def extract_keywords_by_section(job_description):
     job_description = clean_text(job_description)
-    vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1, 2), max_features=50)
-    tfidf_matrix = vectorizer.fit_transform([job_description])
+    vectorizer = CountVectorizer(stop_words='english', ngram_range=(1,2), max_features=100)
+    X = vectorizer.fit_transform([job_description])
     keywords = vectorizer.get_feature_names_out()
-    keyword_list = [kw.lower() for kw in keywords]
+    kws = [kw.lower() for kw in keywords]
 
     return {
-        "work_experience": [kw for kw in keyword_list if any(v in kw for v in ['manage', 'lead', 'develop', 'test', 'maintain', 'coordinate', 'developer'])],
-        "skills": [kw for kw in keyword_list if any(t in kw for t in ['python', 'excel', 'react', 'nodejs', 'marketing', 'design', 'sql', 'aws'])],
-        "education": [kw for kw in keyword_list if any(e in kw for e in ['bachelor', 'master', 'degree', 'diploma', 'certification'])]
+        "work_experience": [kw for kw in kws if any(v in kw for v in ['manage', 'lead', 'develop', 'test', 'maintain', 'coordinate', 'developer'])],
+        "skills": [kw for kw in kws if any(t in kw for t in ['python', 'excel', 'react', 'nodejs', 'marketing', 'design', 'sql', 'aws'])],
+        "education": [kw for kw in kws if any(e in kw for e in ['bachelor', 'master', 'degree', 'diploma', 'certification'])]
     }
 
 def keyword_in_text(keyword, text):
-    return any(word in text for word in keyword.split())
+    if not keyword or not text:
+        return False
+    # match the whole phrase or single word, case-insensitive (text should already be lowered)
+    pattern = r'\b' + re.escape(keyword.lower()) + r'\b'
+    return re.search(pattern, text) is not None
+
 
 def calculate_score(resume_data, job_keywords):
     scores = {
@@ -104,4 +130,5 @@ if __name__ == "__main__":
         os.remove(job_description_path)
     except Exception:
         pass
+ 
  

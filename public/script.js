@@ -229,7 +229,7 @@ generateBtn.addEventListener('click', async () => {
     const score = result.score || 0;
     const feedback = Array.isArray(result.feedback) ? result.feedback : [];
 
-    // 🧪 Optional: Add a slight delay before showing (for dramatic effect)
+    // Optional: Add a slight delay before showing (for dramatic effect)
     setTimeout(() => {
       resultSection.classList.add('show');
     }, 300); // Delay in milliseconds
